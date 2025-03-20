@@ -13,13 +13,15 @@ class InvoiceService
         
     }
     public function process(array $customer, float $amount){
-        $tax = $this->salesTaxService->calculate($amount, $customer);
+        // $tax = $this->salesTaxService->calculate($amount, $customer);
 
-        if(! $this->gatewayPaymentService->charge($customer, $amount, $tax)){
-            return false;
-        }
+        // if(! $this->gatewayPaymentService->charge($customer, $amount, $tax)){
+        //     return false;
+        // }
 
-        $this->emailService->send($customer, 'receipt');
+        // $this->emailService->send($customer, 'receipt');
+
+        echo "processed invoice!";
 
         return true;
     }
