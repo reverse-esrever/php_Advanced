@@ -7,6 +7,7 @@ namespace App;
 use App\Exceptions\RouteNotFoundException;
 use App\Services\EmailService;
 use App\Services\GatewayPaymentService;
+use App\Services\GatewayPaymentServiceInterface;
 use App\Services\InvoiceService;
 use App\Services\SaleTaxService;
 
@@ -14,9 +15,10 @@ class App
 {
     private static DB $db;
 
-    public function __construct(protected Router $router, protected array $request, protected Config $config)
+    public function __construct(protected Container $container,protected Router $router, protected array $request, protected Config $config)
     {
         static::$db = new DB($config->db ?? []);
+        $this->container->set(GatewayPaymentServiceInterface::class, GatewayPaymentService::class);
     }
 
     public static function db(): DB

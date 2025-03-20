@@ -4,7 +4,6 @@ namespace App;
 
 use App\Exceptions\ContainerException;
 use App\Exceptions\NotFoundException;
-use Error;
 use Psr\Container\ContainerInterface;
 
 class Container implements ContainerInterface
@@ -17,7 +16,11 @@ class Container implements ContainerInterface
         if ($this->has($id)) {
             $entry = $this->entries[$id];
 
-            return $entry($this);
+            if(is_callable($entry)){
+                return $entry($this);
+            }
+
+            $id = $entry;
         }
         return $this->resolve($id);
     }
@@ -26,9 +29,9 @@ class Container implements ContainerInterface
         return isset($this->entries[$id]);
     }
 
-    public function set(string $id, callable $concept)
+    public function set(string $id, callable|string $concrete)
     {
-        $this->entries[$id] = $concept;
+        $this->entries[$id] = $concrete;
     }
 
     public function resolve(string $id)
