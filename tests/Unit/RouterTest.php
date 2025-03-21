@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use App\Container;
 use App\Exceptions\RouteNotFoundException;
 use App\Router;
 use PHPUnit\Framework\TestCase;
@@ -15,13 +16,13 @@ class RouterTest extends TestCase
     {
         parent::setUp();
 
-        $this->router = new Router();
+        $this->router = new Router(new Container());
     }
     //Проверка методов классаRouter
     public function testItRegistersRoute(): void
     {
         //Допускаем что есть экземпляр Router
-        $router = new Router;
+        $router = new Router(new Container());
         //Который вызывает метод свой register()
         $router = $router->register('get', '/users', ['Users', 'index']);
 
