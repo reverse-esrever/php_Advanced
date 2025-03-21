@@ -5,6 +5,7 @@ declare(strict_types = 1);
 use App\App;
 use App\Config;
 use App\Container;
+use App\Controllers\GeneratorController;
 use App\Controllers\HomeController;
 use App\Router;
 
@@ -19,8 +20,8 @@ define('VIEW_PATH', __DIR__ . '/../views');
 $container = new Container();
 $router = new Router($container);
 
-$router
-    ->get('/', [HomeController::class, 'index']);
+$router->get('/', [GeneratorController::class, 'index']);
+
 
 (new App(
     $container,
