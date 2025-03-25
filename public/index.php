@@ -11,8 +11,9 @@ use App\Contrvariance\AnimalFood;
 use App\Contrvariance\Food;
 use App\Covariance\CatShelter;
 use App\Covariance\DogShelter;
+use App\Examples\Attributes\Config as AttributesConfig;
+use App\Examples\Attributes\ConfigBuilder;
 use App\Router;
-
 require_once __DIR__ . '/../vendor/autoload.php';
 
 $dotenv = Dotenv\Dotenv::createImmutable(dirname(__DIR__));
@@ -46,6 +47,11 @@ $router->get('/covariance', function () {
     $doggy->eat($banana);
 });
 
+
+$builder = new ConfigBuilder();
+$config = new AttributesConfig();
+$builder->execute($config);
+die;
 
 (new App(
     $container,
