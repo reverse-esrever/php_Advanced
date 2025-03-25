@@ -1,12 +1,16 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 use App\App;
 use App\Config;
 use App\Container;
 use App\Controllers\GeneratorController;
 use App\Controllers\HomeController;
+use App\Contrvariance\AnimalFood;
+use App\Contrvariance\Food;
+use App\Covariance\CatShelter;
+use App\Covariance\DogShelter;
 use App\Router;
 
 require_once __DIR__ . '/../vendor/autoload.php';
@@ -20,7 +24,27 @@ define('VIEW_PATH', __DIR__ . '/../views');
 $container = new Container();
 $router = new Router($container);
 
-$router->get('/', [GeneratorController::class, 'index']);
+$router->get('/', function () {
+    return 'hello';
+});
+$router->get('/covariance', function () {
+    $kitty = (new CatShelter())->adopt("Рыжик");
+    $kitty->speak();
+    echo "\n";
+
+    $doggy = (new DogShelter())->adopt("Бобик");
+    $doggy->speak();
+
+
+    $kitty = (new CatShelter())->adopt("Рыжик");
+    $catFood = new AnimalFood();
+    $kitty->eat($catFood);
+    echo "\n";
+
+    $doggy = (new DogShelter())->adopt("Бобик");
+    $banana = new Food();
+    $doggy->eat($banana);
+});
 
 
 (new App(
