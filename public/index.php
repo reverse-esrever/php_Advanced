@@ -7,6 +7,7 @@ use App\Config;
 use App\Container;
 use App\Controllers\GeneratorController;
 use App\Controllers\HomeController;
+use App\Controllers\InvoiceController;
 use App\Contrvariance\AnimalFood;
 use App\Contrvariance\Food;
 use App\Covariance\CatShelter;
@@ -47,11 +48,7 @@ $router->get('/covariance', function () {
     $doggy->eat($banana);
 });
 
-
-$builder = new ConfigBuilder();
-$config = new AttributesConfig();
-$builder->execute($config);
-die;
+$router->get('/invoices', [InvoiceController::class, 'index']);
 
 (new App(
     $container,
