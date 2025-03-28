@@ -14,6 +14,7 @@ use App\Covariance\CatShelter;
 use App\Covariance\DogShelter;
 use App\Examples\Attributes\Config as AttributesConfig;
 use App\Examples\Attributes\ConfigBuilder;
+use App\Examples\Composition\Invoice;
 use App\Router;
 require_once __DIR__ . '/../vendor/autoload.php';
 
@@ -49,6 +50,7 @@ $router->get('/covariance', function () {
 });
 
 $router->get('/invoices', [InvoiceController::class, 'index']);
+$router->get('/examples/composition', [Invoice::class, 'create']);
 
 (new App(
     $container,
